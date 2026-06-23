@@ -21,17 +21,26 @@ def get_vault_path():
 
 
 def make_safe_filename(note_title):
-    """Turn a note title into a simple Markdown filename."""
+    """Turn a note title into a safe Markdown path."""
     unsafe_characters = '<>:"/\\|?*'
-    filename = note_title.strip()
+    path_parts = note_title.strip().replace("\\", "/").split("/")
+    safe_parts = []
 
-    for character in unsafe_characters:
-        filename = filename.replace(character, "_")
+    for part in path_parts:
+        safe_part = part.strip()
+
+        for character in unsafe_characters:
+            safe_part = safe_part.replace(character, "_")
+
+        if safe_part != "":
+            safe_parts.append(safe_part)
+
+    filename = safe_parts[-1]
 
     if not filename.endswith(".md"):
-        filename = filename + ".md"
+        safe_parts[-1] = filename + ".md"
 
-    return filename
+    return Path(*safe_parts)
 
 
 def load_saved_notes():
@@ -65,9 +74,8 @@ def clear_saved_notes():
 
 def append_notes_to_obsidian(vault_path, note_title, saved_notes):
     """Append all saved notes to one Obsidian Markdown note."""
-    note_filename = make_safe_filename(note_title)
-    note_path = vault_path / note_filename
-    text_to_append = "\n\n".join(saved_notes)
+    note_path = vault_path / make_safe_filename(note_title)
+    text_to_append = "\n".join(saved_notes)
 
     if note_path.exists():
         existing_text = note_path.read_text(encoding="utf-8")
@@ -79,6 +87,7 @@ def append_notes_to_obsidian(vault_path, note_title, saved_notes):
     else:
         new_text = text_to_append
 
+    note_path.parent.mkdir(parents=True, exist_ok=True)
     note_path.write_text(new_text + "\n", encoding="utf-8")
 
 

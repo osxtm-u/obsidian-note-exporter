@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Obsidian Note Exporter</title>
+    <style>
+      body {
+        width: 340px;
+        margin: 0;
+        padding: 18px;
+        font-family: Arial, sans-serif;
+        color: #f8fafc;
+        background: #05070d;
+      }
+
+      h1 {
+        margin: 0 0 14px;
+        font-size: 18px;
+      }
+
+      .tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .tab-button {
+        margin-top: 0;
+        padding: 9px;
+        color: #cbd5e1;
+        background: #111827;
+        border: 1px solid #334155;
+      }
+
+      .tab-button.active {
+        color: #ffffff;
+        background: #2563eb;
+        border-color: #2563eb;
+      }
+
+      .tab-panel {
+        display: none;
+      }
+
+      .tab-panel.active {
+        display: block;
+      }
+
+      h2 {
+        margin: 0 0 6px;
+        font-size: 14px;
+      }
+
+      label {
+        display: block;
+        margin: 12px 0 6px;
+        color: #cbd5e1;
+        font-size: 13px;
+      }
+
+      input,
+      select,
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #334155;
+        border-radius: 6px;
+        color: #f8fafc;
+        background: #111827;
+        font: inherit;
+      }
+
+      select {
+        min-height: 120px;
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: #64748b;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        border: 0;
+        border-radius: 6px;
+        color: #ffffff;
+        background: #2563eb;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      #export-button {
+        color: #111827;
+        background: #38bdf8;
+      }
+
+      button:disabled {
+        color: #e2e8f0;
+        background: #475569;
+        cursor: not-allowed;
+      }
+
+      #status {
+        min-height: 20px;
+        margin-top: 10px;
+        color: #cbd5e1;
+        font-size: 13px;
+      }
+
+      .queue-summary {
+        margin: 0 0 8px;
+        color: #cbd5e1;
+        font-size: 13px;
+      }
+
+      .queue-list {
+        max-height: 170px;
+        overflow-y: auto;
+        padding: 2px 6px;
+        border: 1px solid #334155;
+        border-radius: 6px;
+        background: #0f172a;
+      }
+
+      .queue-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        padding: 4px 6px;
+        border-bottom: 1px solid #1e293b;
+      }
+
+      .queue-row:last-child {
+        margin-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .queue-note {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+        color: #e2e8f0;
+        font-size: 12px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+      }
+
+      .delete-note-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        flex: 0 0 18px;
+        margin: 0;
+        padding: 0;
+        border: none;
+        color: #64748b;
+        background: transparent;
+        font-size: 16px;
+        line-height: 1;
+        text-align: right;
+        cursor: pointer;
+      }
+
+      .delete-note-button:hover {
+        color: #fca5a5;
+        background: transparent;
+      }
+
+      .delete-note-button:focus-visible {
+        outline: 1px solid #64748b;
+        outline-offset: 2px;
+      }
+
+      #clear-queue-button {
+        margin-top: 10px;
+        color: #fecaca;
+        background: #7f1d1d;
+      }
+
+      .empty-queue {
+        color: #94a3b8;
+        font-size: 12px;
+      }
+
+      .success {
+        color: #86efac;
+      }
+
+      .error {
+        color: #fca5a5;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Obsidian Note Exporter</h1>
+
+    <div class="tabs">
+      <button id="save-export-tab" class="tab-button active" type="button">Save / Export</button>
+      <button id="queue-tab" class="tab-button" type="button">Queue</button>
+    </div>
+
+    <div id="save-export-panel" class="tab-panel active">
+      <label for="note">Note text</label>
+      <textarea id="note" placeholder="Type a note..."></textarea>
+      <button id="save-button">Save Note</button>
+
+      <label for="note-search">Find Obsidian note</label>
+      <input id="note-search" type="text" placeholder="Search notes...">
+      <select id="note-list" size="5"></select>
+      <button id="export-button">Export Notes</button>
+
+      <div id="status"></div>
+    </div>
+
+    <div id="queue-panel" class="tab-panel">
+      <h2>Queued Notes</h2>
+      <p id="queue-count" class="queue-summary">0 notes queued</p>
+      <div id="queue-list" class="queue-list">
+        <div class="empty-queue">No queued notes.</div>
+      </div>
+      <button id="clear-queue-button" type="button">Clear Queue</button>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
