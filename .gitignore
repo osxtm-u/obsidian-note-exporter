@@ -2,5 +2,6 @@ __pycache__/
 *.pyc
 vault_path.txt
 saved_notes.json
+server_startup.log
 .venv/
 .env

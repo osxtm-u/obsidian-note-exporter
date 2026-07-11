@@ -4,13 +4,191 @@
     <meta charset="utf-8">
     <title>Obsidian Note Exporter</title>
     <style>
+      :root {
+        color-scheme: dark;
+      }
+
       body {
+        --page-bg: #05070d;
+        --surface: #111827;
+        --surface-muted: #0f172a;
+        --surface-strong: #05070d;
+        --border: #334155;
+        --divider: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #cbd5e1;
+        --text-soft: #94a3b8;
+        --placeholder: #64748b;
+        --accent: #2563eb;
+        --accent-soft: #38bdf8;
+        --accent-dark: #1e3a8a;
+        --accent-text: #ffffff;
+        --accent-soft-text: #111827;
+        --primary-gradient: var(--accent);
+        --primary-gradient-hover: var(--accent);
+        --primary-action-bg: var(--accent);
+        --primary-action-bg-hover: var(--accent);
+        --secondary-action-bg: var(--accent-soft);
+        --secondary-action-bg-hover: var(--accent-soft);
+        --donate-bg: var(--accent-soft);
+        --donate-bg-hover: var(--accent-soft);
+        --danger-soft: #7f1d1d;
+        --danger-text: #fecaca;
+        --danger: var(--danger-soft);
+        --danger-button-text: var(--danger-text);
+        --danger-hover: var(--danger-soft);
+        --neutral-button: #334155;
+        --disabled-bg: #475569;
+        --disabled-text: #e2e8f0;
+        --success: #86efac;
+        --error: #fca5a5;
         width: 340px;
         margin: 0;
         padding: 18px;
         font-family: Arial, sans-serif;
-        color: #f8fafc;
-        background: #05070d;
+        color: var(--text-main);
+        background: var(--page-bg);
+      }
+
+      body[data-palette="ether"] {
+        --page-bg: #02030a;
+        --surface: #080716;
+        --surface-muted: #080716;
+        --surface-strong: #000000;
+        --border: #32105c;
+        --divider: #1c1238;
+        --text-main: #f4f7ff;
+        --text-muted: #c7d2ff;
+        --text-soft: #8ea8ff;
+        --placeholder: #6975aa;
+        --accent: #6330d9;
+        --accent-soft: #001370;
+        --accent-dark: #32105c;
+        --accent-text: #ffffff;
+        --accent-soft-text: #06111f;
+        --primary-gradient: linear-gradient(90deg, #24b8ff 0%, #8755ff 55%, #c13cff 100%);
+        --primary-gradient-hover: linear-gradient(90deg, #58caff 0%, #9b73ff 55%, #cf64ff 100%);
+        --primary-action-bg: var(--primary-gradient);
+        --primary-action-bg-hover: var(--primary-gradient-hover);
+        --secondary-action-bg: var(--primary-gradient);
+        --secondary-action-bg-hover: var(--primary-gradient-hover);
+        --donate-bg: var(--primary-gradient);
+        --donate-bg-hover: var(--primary-gradient-hover);
+        --neutral-button: #17112e;
+        --disabled-bg: #211934;
+        --disabled-text: #817aa4;
+        --success: #24b8ff;
+        --error: #ff8a9e;
+        --danger-soft: #421026;
+        --danger-text: #ffd8e0;
+        --danger: var(--danger-soft);
+        --danger-button-text: var(--danger-text);
+        --danger-hover: var(--danger-soft);
+      }
+
+      body[data-palette="neonRose"] {
+        --page-bg: #07030a;
+        --surface: #120713;
+        --surface-muted: #120713;
+        --surface-strong: #07030a;
+        --border: #8f1d72;
+        --divider: #45113b;
+        --text-main: #fff4fc;
+        --accent: #f52aa8;
+        --accent-soft: #9b4dff;
+        --accent-dark: #8f1d72;
+        --accent-text: #111827;
+        --accent-soft-text: #ffffff;
+        --primary-gradient: linear-gradient(90deg, #f52aa8 0%, #b93dde 55%, #8b5cff 100%);
+        --primary-gradient-hover: linear-gradient(90deg, #ff4fbc 0%, #ce58f0 55%, #a174ff 100%);
+        --primary-action-bg: var(--primary-gradient);
+        --primary-action-bg-hover: var(--primary-gradient-hover);
+        --secondary-action-bg: var(--primary-gradient);
+        --secondary-action-bg-hover: var(--primary-gradient-hover);
+        --donate-bg: var(--primary-gradient);
+        --donate-bg-hover: var(--primary-gradient-hover);
+        --neutral-button: #251128;
+        --disabled-bg: #342037;
+        --disabled-text: #a77a9d;
+        --success: #ff8bd2;
+        --error: #ff9db8;
+        --danger-soft: #3b1026;
+        --danger-text: #ffd7ec;
+        --danger: var(--danger-soft);
+        --danger-button-text: var(--danger-text);
+        --danger-hover: var(--danger-soft);
+      }
+
+      body[data-palette="afterglow"] {
+        --page-bg: #000000;
+        --surface: #080505;
+        --surface-muted: #080505;
+        --surface-strong: #000000;
+        --border: #241111;
+        --divider: #1a0a0a;
+        --text-main: #f2f2f2;
+        --text-muted: #b8b8b8;
+        --text-soft: #8f8383;
+        --placeholder: #665959;
+        --accent: #420040;
+        --accent-soft: #2e0000;
+        --accent-dark: #1a0061;
+        --accent-text: #ffffff;
+        --accent-soft-text: #ffffff;
+        --primary-gradient: linear-gradient(90deg, #1a0061 0%, #420040 55%, #2e0000 100%);
+        --primary-gradient-hover: linear-gradient(90deg, #371b7a 0%, #5e1a5a 55%, #4b1818 100%);
+        --primary-action-bg: var(--primary-gradient);
+        --primary-action-bg-hover: var(--primary-gradient-hover);
+        --secondary-action-bg: var(--primary-gradient);
+        --secondary-action-bg-hover: var(--primary-gradient-hover);
+        --donate-bg: var(--primary-gradient);
+        --donate-bg-hover: var(--primary-gradient-hover);
+        --neutral-button: #1a1111;
+        --disabled-bg: #241818;
+        --disabled-text: #8f8383;
+        --success: #c46b8f;
+        --error: #d98989;
+        --danger-soft: #3e0000;
+        --danger-text: #ffd9d9;
+        --danger: var(--danger-soft);
+        --danger-button-text: var(--danger-text);
+        --danger-hover: var(--danger-soft);
+      }
+
+      body[data-palette="pastel"] {
+        --page-bg: #ffeae6;
+        --surface: #fff4f1;
+        --surface-muted: #f4e9f4;
+        --surface-strong: #ffdce4;
+        --border: #c9b9d9;
+        --divider: #eec4d7;
+        --text-main: #2a2634;
+        --text-muted: #5b5367;
+        --text-soft: #7b7188;
+        --placeholder: #988da2;
+        --accent: #c2c3f3;
+        --accent-soft: #eec4d7;
+        --accent-dark: #a7a8df;
+        --accent-text: #25223a;
+        --accent-soft-text: #35283c;
+        --primary-gradient: linear-gradient(90deg, #c2c3f3 0%, #eec4d7 55%, #ffdce4 100%);
+        --primary-gradient-hover: linear-gradient(90deg, #d4d5ff 0%, #f5d3e2 55%, #ffe8ed 100%);
+        --primary-action-bg: var(--primary-gradient);
+        --primary-action-bg-hover: var(--primary-gradient-hover);
+        --secondary-action-bg: var(--primary-gradient);
+        --secondary-action-bg-hover: var(--primary-gradient-hover);
+        --donate-bg: var(--primary-gradient);
+        --donate-bg-hover: var(--primary-gradient-hover);
+        --neutral-button: #c9b9d9;
+        --disabled-bg: #e5d7e2;
+        --disabled-text: #8a7f8d;
+        --success: #6d6fab;
+        --error: #9b4f67;
+        --danger-soft: #eec4d7;
+        --danger-text: #35283c;
+        --danger: var(--danger-soft);
+        --danger-button-text: var(--danger-text);
+        --danger-hover: var(--danger-soft);
       }
 
       h1 {
@@ -20,7 +198,7 @@
 
       .tabs {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(76px, 1fr));
         gap: 8px;
         margin-bottom: 12px;
       }
@@ -28,15 +206,19 @@
       .tab-button {
         margin-top: 0;
         padding: 9px;
-        color: #cbd5e1;
-        background: #111827;
-        border: 1px solid #334155;
+        color: var(--text-main);
+        background: var(--surface);
+        border: 1px solid var(--border);
       }
 
       .tab-button.active {
-        color: #ffffff;
-        background: #2563eb;
-        border-color: #2563eb;
+        color: var(--accent-text);
+        background: var(--primary-action-bg);
+        border-color: var(--accent);
+      }
+
+      .tab-button.active:hover {
+        background: var(--primary-action-bg-hover);
       }
 
       .tab-panel {
@@ -47,6 +229,10 @@
         display: block;
       }
 
+      .hidden {
+        display: none;
+      }
+
       h2 {
         margin: 0 0 6px;
         font-size: 14px;
@@ -55,7 +241,7 @@
       label {
         display: block;
         margin: 12px 0 6px;
-        color: #cbd5e1;
+        color: var(--text-main);
         font-size: 13px;
       }
 
@@ -65,15 +251,28 @@
         box-sizing: border-box;
         width: 100%;
         padding: 10px;
-        border: 1px solid #334155;
+        border: 1px solid var(--border);
         border-radius: 6px;
-        color: #f8fafc;
-        background: #111827;
+        color: var(--text-main);
+        background: var(--surface);
         font: inherit;
       }
 
-      select {
+      input:focus,
+      select:focus,
+      textarea:focus,
+      button:focus-visible {
+        outline: 2px solid var(--focus-color, var(--accent-soft));
+        outline-offset: 2px;
+      }
+
+      #note-list {
         min-height: 120px;
+      }
+
+      option:checked {
+        color: var(--accent-text);
+        background: var(--primary-action-bg);
       }
 
       textarea {
@@ -83,7 +282,7 @@
 
       input::placeholder,
       textarea::placeholder {
-        color: #64748b;
+        color: var(--placeholder);
       }
 
       button {
@@ -92,43 +291,96 @@
         padding: 10px;
         border: 0;
         border-radius: 6px;
-        color: #ffffff;
-        background: #2563eb;
+        color: var(--accent-text);
+        background: var(--primary-action-bg);
         font: inherit;
         cursor: pointer;
       }
 
-      #export-button {
-        color: #111827;
-        background: #38bdf8;
+      button:hover {
+        background: var(--primary-action-bg-hover);
+      }
+
+      .donate-link {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        border: 0;
+        border-radius: 6px;
+        color: var(--accent-soft-text);
+        background: var(--donate-bg);
+        font: inherit;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .donate-link:hover,
+      .donate-link:focus-visible {
+        color: var(--accent-soft-text);
+        background: var(--donate-bg-hover);
       }
 
       button:disabled {
-        color: #e2e8f0;
-        background: #475569;
+        color: var(--disabled-text);
+        background: var(--disabled-bg);
         cursor: not-allowed;
       }
 
       #status {
         min-height: 20px;
         margin-top: 10px;
-        color: #cbd5e1;
+        color: var(--text-muted);
         font-size: 13px;
       }
 
       .queue-summary {
         margin: 0 0 8px;
-        color: #cbd5e1;
+        color: var(--text-main);
         font-size: 13px;
+      }
+
+      .queue-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin: 0 0 6px;
+        color: var(--text-main);
+        font-size: 12px;
+      }
+
+      .select-all-control {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+        color: var(--text-main);
+        font-size: 12px;
+      }
+
+      .select-all-control input,
+      .queue-select-checkbox {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        accent-color: var(--accent-soft);
+      }
+
+      .selected-count {
+        color: var(--text-soft);
       }
 
       .queue-list {
         max-height: 170px;
         overflow-y: auto;
         padding: 2px 6px;
-        border: 1px solid #334155;
+        border: 1px solid var(--border);
         border-radius: 6px;
-        background: #0f172a;
+        background: var(--surface-muted);
       }
 
       .queue-row {
@@ -137,7 +389,7 @@
         gap: 8px;
         margin: 0;
         padding: 4px 6px;
-        border-bottom: 1px solid #1e293b;
+        border-bottom: 1px solid var(--divider);
       }
 
       .queue-row:last-child {
@@ -149,7 +401,7 @@
         flex: 1;
         min-width: 0;
         margin: 0;
-        color: #e2e8f0;
+        color: var(--text-main);
         font-size: 12px;
         line-height: 1.4;
         white-space: pre-wrap;
@@ -165,7 +417,7 @@
         margin: 0;
         padding: 0;
         border: none;
-        color: #64748b;
+        color: var(--placeholder);
         background: transparent;
         font-size: 16px;
         line-height: 1;
@@ -174,32 +426,309 @@
       }
 
       .delete-note-button:hover {
-        color: #fca5a5;
+        color: var(--danger-hover);
         background: transparent;
       }
 
       .delete-note-button:focus-visible {
-        outline: 1px solid #64748b;
+        outline: 1px solid var(--focus-color, var(--accent-soft));
         outline-offset: 2px;
       }
 
       #clear-queue-button {
         margin-top: 10px;
-        color: #fecaca;
-        background: #7f1d1d;
+        color: var(--danger-text);
+        background: var(--danger-soft);
+      }
+
+      .clear-confirmation {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid var(--danger-soft);
+        border-radius: 6px;
+        background: var(--surface);
+      }
+
+      .clear-confirmation.hidden {
+        display: none;
+      }
+
+      .clear-confirmation-text {
+        margin: 0 0 8px;
+        color: var(--text-main);
+        font-size: 13px;
+      }
+
+      .clear-confirmation-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .clear-confirmation-actions button {
+        margin-top: 0;
+      }
+
+      #cancel-clear-queue-button {
+        color: var(--danger-text);
+        background: var(--neutral-button);
+      }
+
+      #confirm-clear-queue-button {
+        color: var(--danger-text);
+        background: var(--danger-soft);
+      }
+
+      #confirm-clear-queue-button:hover {
+        background: var(--danger-soft);
+        opacity: 0.88;
+      }
+
+      #export-selected-button {
+        color: var(--accent-soft-text);
+        background: var(--secondary-action-bg);
+      }
+
+      #export-selected-button:hover {
+        background: var(--secondary-action-bg-hover);
+      }
+
+      #queue-status {
+        min-height: 20px;
+        margin-top: 8px;
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      .setting-group-label {
+        margin: 14px 0 8px;
+        color: var(--text-main);
+        font-size: 13px;
+      }
+
+      .theme-editor {
+        margin-top: 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface-muted);
+      }
+
+      .theme-editor summary {
+        padding: 10px;
+        color: var(--text-main);
+        cursor: pointer;
+      }
+
+      .theme-editor-content {
+        padding: 0 10px 10px;
+      }
+
+      .theme-color-row {
+        display: grid;
+        grid-template-columns: 1fr 42px 92px;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .theme-color-row label {
+        margin: 0;
+      }
+
+      .theme-gradient-controls.hidden {
+        display: none;
+      }
+
+      .theme-gradient-preview {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        color: var(--accent-text);
+        background: var(--primary-action-bg);
+        font-size: 12px;
+        text-align: center;
+      }
+
+      .theme-danger-section {
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid var(--divider);
+      }
+
+      .theme-section-label {
+        margin-bottom: 2px;
+        color: var(--text-main);
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      .theme-color-picker {
+        height: 36px;
+        padding: 2px;
+      }
+
+      .theme-hex-input {
+        padding: 8px;
+        text-transform: uppercase;
+      }
+
+      .theme-editor-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .theme-editor-actions button {
+        margin-top: 10px;
+      }
+
+      #reset-palette-button {
+        color: var(--danger-text);
+        background: var(--neutral-button);
+      }
+
+      #reset-all-themes-button {
+        color: var(--danger-text);
+        background: var(--danger-soft);
+      }
+
+      .theme-save-area {
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid var(--divider);
+      }
+
+      #save-new-theme-button {
+        color: var(--accent-soft-text);
+        background: var(--secondary-action-bg);
+      }
+
+      #save-new-theme-button:hover {
+        background: var(--secondary-action-bg-hover);
+      }
+
+      #delete-custom-theme-button {
+        width: auto;
+        padding: 6px 8px;
+        color: var(--danger-text);
+        background: var(--danger-soft);
+        font-size: 12px;
+      }
+
+      #confirm-delete-theme-button,
+      #confirm-reset-themes-button {
+        color: var(--danger-text);
+        background: var(--danger-soft);
+      }
+
+      #confirm-delete-theme-button:hover,
+      #confirm-reset-themes-button:hover {
+        background: var(--danger-soft);
+        opacity: 0.88;
+      }
+
+      .setting-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 12px;
+        color: var(--text-main);
+        font-size: 13px;
+      }
+
+      .setting-row input {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        accent-color: var(--accent-soft);
+      }
+
+      .select-all-control input,
+      .queue-select-checkbox,
+      .setting-row input {
+        accent-color: var(--accent);
+      }
+
+      .summary-card {
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface-muted);
+      }
+
+      .summary-message {
+        min-height: 20px;
+        margin: 0 0 8px;
+        color: var(--text-main);
+        font-size: 13px;
+      }
+
+      .summary-source {
+        display: inline-block;
+        margin: 0 0 8px;
+        padding: 4px 8px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--text-soft);
+        background: var(--surface-strong);
+        font-size: 12px;
+      }
+
+      .summary-text {
+        margin: 0;
+        color: var(--text-main);
+        font-size: 13px;
+        line-height: 1.45;
+        white-space: pre-wrap;
+      }
+
+      .original-text {
+        margin-top: 12px;
+        color: var(--text-main);
+        font-size: 12px;
+      }
+
+      .original-text summary {
+        cursor: pointer;
+      }
+
+      .original-text-content {
+        max-height: 120px;
+        overflow-y: auto;
+        margin: 8px 0 0;
+        padding: 8px;
+        border: 1px solid var(--divider);
+        border-radius: 6px;
+        color: var(--text-soft);
+        background: var(--surface-strong);
+        line-height: 1.4;
+        white-space: pre-wrap;
+      }
+
+      #close-summary-button {
+        color: var(--text-main);
+        background: var(--neutral-button);
+      }
+
+      #settings-status {
+        min-height: 20px;
+        margin-top: 10px;
+        color: var(--text-main);
+        font-size: 13px;
       }
 
       .empty-queue {
-        color: #94a3b8;
+        color: var(--text-soft);
         font-size: 12px;
       }
 
       .success {
-        color: #86efac;
+        color: var(--success);
       }
 
       .error {
-        color: #fca5a5;
+        color: var(--error);
       }
     </style>
   </head>
@@ -209,6 +738,8 @@
     <div class="tabs">
       <button id="save-export-tab" class="tab-button active" type="button">Save / Export</button>
       <button id="queue-tab" class="tab-button" type="button">Queue</button>
+      <button id="summary-tab" class="tab-button hidden" type="button">Summary</button>
+      <button id="settings-tab" class="tab-button" type="button">Settings</button>
     </div>
 
     <div id="save-export-panel" class="tab-panel active">
@@ -220,6 +751,7 @@
       <input id="note-search" type="text" placeholder="Search notes...">
       <select id="note-list" size="5"></select>
       <button id="export-button">Export Notes</button>
+      <a id="donate-link" class="donate-link" href="#" target="_blank" rel="noopener noreferrer">Donate</a>
 
       <div id="status"></div>
     </div>
@@ -227,10 +759,98 @@
     <div id="queue-panel" class="tab-panel">
       <h2>Queued Notes</h2>
       <p id="queue-count" class="queue-summary">0 notes queued</p>
+      <div class="queue-actions">
+        <label class="select-all-control" for="select-all-checkbox">
+          <input id="select-all-checkbox" type="checkbox">
+          Select All
+        </label>
+        <span id="selected-count" class="selected-count">0 selected.</span>
+      </div>
       <div id="queue-list" class="queue-list">
         <div class="empty-queue">No queued notes.</div>
       </div>
+      <button id="export-selected-button" type="button">Export Selected</button>
       <button id="clear-queue-button" type="button">Clear Queue</button>
+      <div id="clear-confirmation" class="clear-confirmation hidden">
+        <p class="clear-confirmation-text">Clear all queued notes?</p>
+        <div class="clear-confirmation-actions">
+          <button id="cancel-clear-queue-button" type="button">Cancel</button>
+          <button id="confirm-clear-queue-button" type="button">Clear</button>
+        </div>
+      </div>
+      <div id="queue-status"></div>
+    </div>
+
+    <div id="summary-panel" class="tab-panel">
+      <h2>Summary</h2>
+      <div class="summary-card">
+        <div id="summary-source" class="summary-source">Highlighted text</div>
+        <p id="summary-message" class="summary-message">Summarizing...</p>
+        <div id="summary-text" class="summary-text"></div>
+        <details id="original-text-wrapper" class="original-text hidden">
+          <summary id="original-text-label">Original highlighted text</summary>
+          <div id="original-text" class="original-text-content"></div>
+        </details>
+      </div>
+      <button id="close-summary-button" type="button">Close Summary</button>
+    </div>
+
+    <div id="settings-panel" class="tab-panel">
+      <h2>Settings</h2>
+      <label for="color-palette">Color Palette</label>
+      <select id="color-palette">
+        <option value="afterglow">Afterglow</option>
+        <option value="ether">Ether</option>
+        <option value="pastel">Pastel</option>
+        <option value="neonRose">Neon Rose</option>
+      </select>
+      <details class="theme-editor">
+        <summary>Theme Editor</summary>
+        <div class="theme-editor-content">
+          <div id="theme-color-fields"></div>
+          <div class="theme-save-area">
+            <label for="new-theme-name">Create New Theme</label>
+            <input id="new-theme-name" type="text" placeholder="My theme">
+            <button id="save-new-theme-button" type="button">Save as New Theme</button>
+            <button id="delete-custom-theme-button" class="hidden" type="button">Delete Theme</button>
+            <div id="delete-theme-confirmation" class="clear-confirmation hidden">
+              <p id="delete-theme-confirmation-text" class="clear-confirmation-text">Delete this custom theme?</p>
+              <div class="clear-confirmation-actions">
+                <button id="cancel-delete-theme-button" type="button">Cancel</button>
+                <button id="confirm-delete-theme-button" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+          <div class="theme-editor-actions">
+            <button id="reset-palette-button" type="button">Reset Ether</button>
+            <button id="reset-all-themes-button" type="button">Reset All Themes</button>
+          </div>
+          <div id="reset-themes-confirmation" class="clear-confirmation hidden">
+            <p class="clear-confirmation-text">Reset all custom theme colors?</p>
+            <div class="clear-confirmation-actions">
+              <button id="cancel-reset-themes-button" type="button">Cancel</button>
+              <button id="confirm-reset-themes-button" type="button">Reset</button>
+            </div>
+          </div>
+        </div>
+      </details>
+      <label class="setting-row" for="show-trash-notes">
+        <input id="show-trash-notes" type="checkbox">
+        Show notes from .trash
+      </label>
+      <label class="setting-row" for="add-selected-to-recents">
+        <input id="add-selected-to-recents" type="checkbox">
+        Add selected notes to Recents immediately
+      </label>
+      <label class="setting-row" for="add-date-time">
+        <input id="add-date-time" type="checkbox">
+        Add date and time to saved notes
+      </label>
+      <label class="setting-row" for="add-source-link">
+        <input id="add-source-link" type="checkbox">
+        Add source link to saved notes
+      </label>
+      <div id="settings-status"></div>
     </div>
 
     <script src="popup.js"></script>
