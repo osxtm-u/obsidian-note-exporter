@@ -161,7 +161,7 @@ On Windows, you can double-click this file to start the Flask server without kee
 
 To start it automatically when Windows starts, place a shortcut to `start_server_hidden.vbs` in the Windows Startup folder.
 
-This hidden launcher is Windows-specific. On macOS or Linux, use your system’s normal startup tools if you want the server to start automatically.
+This hidden launcher is Windows-specific and optional. It may need to be edited for your own Python installation path before it works. On macOS or Linux, use your system's normal startup tools if you want the server to start automatically.
 
 ## 9. Stop or restart the hidden server on Windows
 

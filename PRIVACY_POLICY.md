@@ -154,6 +154,8 @@ This privacy policy may be updated as the project changes. The updated version s
 
 ## Contact
 
-For support, open an issue on the project's GitHub repository.
+For support, bug reports, or feature requests, open an issue on GitHub:
 
-Before publishing, replace this section with the final public GitHub issues URL.
+```text
+https://github.com/osxtm-u/obsidian-note-exporter/issues
+```

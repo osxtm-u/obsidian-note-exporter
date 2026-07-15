@@ -1,34 +1,58 @@
 # Run the Flask Server Hidden
 
+This is an optional, advanced Windows setup. The standard public setup is to run:
+
+```powershell
+python server.py
+```
+
+Use the hidden launcher only if you want the local Flask server to run without a visible terminal window.
+
 ## Start the server
 
 Double-click `start_server_hidden.vbs`.
 
-The launcher starts `server.py` with `C:\Python314\pythonw.exe`, uses this project folder as the working directory, and does not leave a Command Prompt window open.
+The launcher starts `server.py` with `pythonw.exe`, uses this project folder as the working directory, and does not leave a Command Prompt window open.
+
+Before using it, open `start_server_hidden.vbs` and check the `pythonwPath` value. The included script may contain a Python path from the original development machine, such as:
+
+```text
+C:\Python314\pythonw.exe
+```
+
+Change that value to the `pythonw.exe` path on your own computer if needed.
 
 If this project's server is already running, the launcher exits without starting a duplicate process.
 
 ## Start automatically at login
 
-Double-click `enable_auto_start.vbs` once to create the Startup shortcut.
+Auto-start is optional and may require manual setup.
 
-Windows will then run the `Obsidian Note Exporter Server.lnk` shortcut when you log in. The shortcut is stored in:
+The included `enable_auto_start.vbs` helper expects a prepared Windows shortcut file named:
+
+```text
+Obsidian Note Exporter Server.lnk
+```
+
+If that shortcut is not included in your copy of the project, create a shortcut manually instead of using `enable_auto_start.vbs`.
+
+Windows runs shortcuts from this Startup folder when you log in:
 
 ```text
 %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
 ```
 
-The shortcut launches `start_server_hidden.vbs`, so no Command Prompt window appears.
+The shortcut should launch `start_server_hidden.vbs`, so no Command Prompt window appears.
 
-After enabling auto-start, press `Windows key + R`, enter `shell:startup`, and confirm that `Obsidian Note Exporter Server.lnk` appears. Its target is the absolute path to this project's `start_server_hidden.vbs`, and its working directory is this project folder.
+After setting up auto-start, press `Windows key + R`, enter `shell:startup`, and confirm that `Obsidian Note Exporter Server.lnk` appears. Its target should be the absolute path to this project's `start_server_hidden.vbs`, and its working directory should be this project folder.
 
-If Windows blocks the installer, use the manual fallback:
+Manual setup:
 
 1. Press `Windows key + R`.
 2. Enter `shell:startup`.
-3. Drag `Obsidian Note Exporter Server.lnk` from this project folder into the Startup folder.
-
-The prepared shortcut already contains the correct absolute launcher path and working directory.
+3. Create a shortcut in that folder.
+4. Set the shortcut target to this project's `start_server_hidden.vbs`.
+5. Set the shortcut working directory to this project folder.
 
 ## Disable auto-start
 

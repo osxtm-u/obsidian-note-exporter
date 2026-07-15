@@ -628,8 +628,6 @@ async function handleSelectionShortcut(actionId) {
 
 
 chrome.commands.onCommand.addListener((command) => {
-  console.log("Shortcut command received:", command);
-
   if (command === OPEN_EXTENSION_POPUP_COMMAND_ID) {
     openExtensionPopup();
     return;

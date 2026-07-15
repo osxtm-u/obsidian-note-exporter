@@ -5,3 +5,7 @@ saved_notes.json
 server_startup.log
 .venv/
 .env
+icons/
+*.lnk
+.DS_Store
+Thumbs.db
